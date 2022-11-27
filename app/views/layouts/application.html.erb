@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Koluku</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= include_gon %>
+  </head>
+
+  <body>
+      <%= link_to "トップページ", toppages_path %>
+      <%= link_to "ショップ一覧", shops_path %>
+      <%= link_to "ショップ新規", new_shop_path %>
+    <%= yield %>
+  </body>
+</html>
