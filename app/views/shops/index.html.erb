@@ -34,6 +34,8 @@ const display = document.getElementById('display')
   });
   };
 
+
+
 function initMap(){
   geocoder = new google.maps.Geocoder()
   var mapLatLng = new google.maps.LatLng({lat: 35.6809591, lng: 139.7673068});
@@ -42,25 +44,35 @@ function initMap(){
       zoom: 13, // 地図のデフォルトのズーム指定
   });
 
-    for (var i = 0; i < markerData.length; i++) {
-      // 緯度経度のデータを作成
-      markerLatLng = new google.maps.LatLng({lat: markerData[i]['lat'], lng: markerData[i]['lng']});
-      marker[i] = new google.maps.Marker({
-        position: markerLatLng, // マーカーを立てる位置を指定
-        map: map, // マーカーを立てる地図を指定
-        title: markerData[i]['title'] // ツールヒント
-      });
-      
-      // 吹き出しの設定
-      infoWindow[i] = new google.maps.InfoWindow({
-        // 吹き出しに表示する内容を設定する
-        content: markerData[i]['content']
-      });
-      
+  for (var i = 0; i < markerData.length; i++) {
+    // 緯度経度のデータを作成
+    markerLatLng = new google.maps.LatLng({lat: markerData[i]['lat'], lng: markerData[i]['lng']});
+    marker[i] = new google.maps.Marker({
+      position: markerLatLng, // マーカーを立てる位置を指定
+      map: map, // マーカーを立てる地図を指定
+      title: markerData[i]['title'] // ツールヒント
+    });
+    let this_shop = markerData[i]['title']
+    $(document).on('click','a', function(){
+    $.ajax({
+      url: "/",
+      type: "GET",
+      data: {content : this_shop},
+      datatype: "html",
+    });
+  });
+
+    // 吹き出しの設定
+    infoWindow[i] = new google.maps.InfoWindow({
+      // 吹き出しに表示する内容を設定する
+      content: `<a id="shop_content" href="/" >${markerData[i].title}</a><br />`
+    });
+
       // マーカーにクリックイベントを追加
       markerEvent(i);
     }
   }
+
 
   function markerEvent(i) {
       marker[i].addListener('click', function() {

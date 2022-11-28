@@ -1,121 +1,13 @@
+<h1>test</h1>
 
- <div class="search_form">
-    <%= form_with url: toppages_path, local: true, method: :get do |f| %>
-      <%= f.text_field :word , name: "search"%>
-      <%= f.submit "検索", class: "btn btn-primary" %>
-    <% end %>
-
-    <% @places.each do |places| %>
-  <tr>
-    <td id="places_name"><%= places.name %></td>
-    
-  </tr>
-  <% end %>
-<%
-=begin%>
- 
-<p id="test">NG<p>
-
-<div id='map'></div>
-
-<%= javascript_pack_tag 'toppages/index' %>
-
-<style>
-#map {
-  height: 50vh;
-  width: 60vw;
-  margin: 0 auto;
-}
-</style>
-// <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API'] %>&callback=initMap" async defer></script>  
-<%
-=end%>
+<%unless @shop.nil? %>
+<td><%= @shop.content %></td>
+<% end %>
 
 
-        <%
-=begin%>
- <form action="index.html" method="get" name="mail_form">
-            店舗名：<input type="text" name="mail">
-            <input type="submit" value="送信">
-        </form> 
-<%
-=end%>
-
-<div id="map_canvas" style="width:100%; height:500px;">
-</div>
- 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API'] %>&callback=initMap"></script>
+<p>テスト</p>
 <script type="text/javascript">
-<!--
-  var map;
-  var marker = [];
-  var infoWindow = [];
-  var allShops = gon.places;
-  var markerData = [] 
-  // マーカーに設定するタイトル・緯度・経度・内容
-  // function shopData(){ 
-
-    for (var i = 0; i < allShops.length; i++) { 
-      markerData.push({
-      title: allShops[i]['name'],
-      lat: allShops[i]['lat'],
-      lng: allShops[i]['lng'],
-      content: allShops[i]['name'] + '<br><img src="./ippatsu.png" width="200"><br>'
+  $(document).ready(function() {
+    $("p").text("成功！！");
   });
-  };
-
-// var markerData = shopData;
-
-  // var markerData = [ {
-  //     title: '壱発ラーメン',
-  //     lat: 35.567675,
-  //     lng: 139.361022,
-  //     content: '壱発ラーメン 相模原店<br><img src="./ippatsu.png" width="200"><br><a href="http://ippatsu.co.jp/" target="_blank">公式サイトはコチラ！</a>'
-  //   }, {
-  //     title: 'とんこつらーめん七志',
-  //     lat: 35.568550,
-  //     lng: 139.361146,
-  //     content: 'とんこつらーめん七志 相模原横山台店<br><img src="./nanashi.png" width="200"><br><a href="http://www.nanashi-food.com/" target="_blank">公式サイトはコチラ！</a>'
-  //   } ];
-
- // 地図の作成
-  function initMap() {
-    // 緯度経度のデータ作成
-    var mapLatLng = new google.maps.LatLng({lat: 35.6809591, lng: 139.7673068});
-    // 地図の基本設定
-    map = new google.maps.Map(document.getElementById('map_canvas'), {
-      center: mapLatLng, // 地図の中心座標を指定
-      zoom: 13, // 地図のデフォルトのズーム指定
-      mapTypeId: google.maps.MapTypeId.ROADMAP // マップの表示種別選択 (ROADMAP・SATELLITE・TERRAIN・HYBRIDから選択)
-    });
-    
-    // マーカー毎の処理
-    for (var i = 0; i < markerData.length; i++) {
-      // 緯度経度のデータを作成
-      markerLatLng = new google.maps.LatLng({lat: markerData[i]['lat'], lng: markerData[i]['lng']});
-      marker[i] = new google.maps.Marker({
-        position: markerLatLng, // マーカーを立てる位置を指定
-        map: map, // マーカーを立てる地図を指定
-        title: markerData[i]['title'] // ツールヒント
-      });
-      
-      // 吹き出しの設定
-      infoWindow[i] = new google.maps.InfoWindow({
-        // 吹き出しに表示する内容を設定する
-        content: markerData[i]['content']
-      });
-      
-      // マーカーにクリックイベントを追加
-      markerEvent(i);
-    }
-  }
-   
-  // マーカーにクリックイベントを追加
-  function markerEvent(i) {
-      marker[i].addListener('click', function() {
-        // 吹き出しの表示
-        infoWindow[i].open(map, marker[i]);
-    });
-  }
-//--?>
 </script>
